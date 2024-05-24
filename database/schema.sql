@@ -2,8 +2,9 @@
 
 CREATE DATABASE IF NOT EXISTS easecloud_api;
 
-CREATE USER 'easecloud_api'@'localhost' IDENTIFIED BY 'easecloud_api';
-GRANT ALL PRIVILEGES ON *.* TO 'easecloud_api'@'localhost';
+CREATE USER IF NOT EXISTS 'easeAdmin.123'@'localhost' IDENTIFIED BY '.Hys^#&Oghks!GppwBb)0O';
+-- GRANT ALL PRIVILEGES ON *.* TO 'easeAdmin.123'@'localhost';
+GRANT ALL PRIVILEGES ON easecloud_api.* TO 'easeAdmin.123'@'localhost';
 FLUSH PRIVILEGES;
 USE easecloud_api;
 
@@ -78,6 +79,8 @@ CREATE TABLE IF NOT EXISTS cf_submissions (
     user_id INT NULL,
     ip VARCHAR(255) NOT NULL,
     user_agent VARCHAR(255) NOT NULL,
+    request_uri VARCHAR(255) NOT NULL,
+    http_host VARCHAR(255) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

@@ -2,7 +2,11 @@
     "require": {
         "slim/slim": "^4.13",
         "slim/psr7": "^1.6",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "php-di/php-di": "^7.0",
+        "vlucas/valitron": "^1.4",
+        "symfony/var-dumper": "^7.0"
     },
     "autoload": {
         "files": [
