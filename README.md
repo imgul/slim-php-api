@@ -21,16 +21,16 @@ Wohooo 🎉! You're all setup.
 
 ### Check API Status
 
-![img.png](img.png)
+![CheckAPIStatus.png](documentation/img/CheckAPIStatus.png)
 
 ### Check DB Connection
 
-![img.png](img.png)
+![CheckDBConnection.png](documentation/img/CheckDBConnection.png)
 
 ### Submit Contact Form
 
-![img.png](img.png)
+![SubmitContactForm.png](documentation/img/SubmitContactForm.png)
 
 ### Retrieve All CF Submissions
 
-![img.png](img.png)
+![RetrieveAllCFSubmissions.png](documentation/img/RetrieveAllCFSubmissions.png)
