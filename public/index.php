@@ -23,6 +23,12 @@ $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
 
 // allow cors for the localhost:4200
+
+// Handle preflight requests
+$app->options('/api/{routes:.+}', function (Request $request, Response $response, array $args) {
+    return $response;
+});
+
 $app->add(function ($request, $handler) {
     $response = $handler->handle($request);
     return $response
@@ -53,8 +59,8 @@ $app->group('/api', function (RouteCollectorProxy $group) {
         $db = new DB(
             'localhost',
             'easecloud_api',
-            'easecloud_api',
-            'easecloud_api'
+            'easeAdmin.123',
+            '.Hys^#&Oghks!GppwBb)0O'
         );
         $status = $db->checkConnection();
         $response->getBody()->write(json_encode($status));
@@ -62,7 +68,12 @@ $app->group('/api', function (RouteCollectorProxy $group) {
     });
 
     $group->get('/cf-submissions', [CFController::class, 'index']);
-    $group->post('/submit-contact-form', [CFController::class, 'store']);
+    $group->post('/cf-submissions', [CFController::class, 'store']);
+
+    // Allow preflight requests
+    $group->options('', function (Request $request, Response $response): Response {
+        return $response;
+    });
 });
 
 $app->run();
