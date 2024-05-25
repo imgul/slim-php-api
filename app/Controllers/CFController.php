@@ -24,6 +24,21 @@ class CFController
         ]);
     }
 
+    final public function index(Request $request, Response $response, array $data): Response
+    {
+        $cf_submissions = $this->repository->getAll();
+
+        $response->getBody()->write(json_encode([
+            'status' => 'success',
+            'message' => 'All contacts form submissions retrieved successfully',
+            'data' => [
+                'cfSubmissions' => $cf_submissions
+            ]
+        ]));
+
+        return $response->withStatus(200);
+    }
+
     final public function store(Request $request, Response $response, array $data): Response
     {
         try {

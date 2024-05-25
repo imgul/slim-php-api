@@ -7,6 +7,10 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface;
+
 define("APP_ROOT", dirname(__DIR__));
 
 require APP_ROOT . '/vendor/autoload.php';
@@ -17,6 +21,15 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 $app->addBodyParsingMiddleware();
+
+// allow cors for the localhost:4200
+$app->add(function ($request, $handler) {
+    $response = $handler->handle($request);
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
 
 $error_middleware = $app->addErrorMiddleware(true, true, true);
 $error_handler = $error_middleware->getDefaultErrorHandler();
@@ -48,6 +61,7 @@ $app->group('/api', function (RouteCollectorProxy $group) {
         return $response;
     });
 
+    $group->get('/cf-submissions', [CFController::class, 'index']);
     $group->post('/submit-contact-form', [CFController::class, 'store']);
 });
 
